@@ -1,4 +1,4 @@
-package com.example.github_commits.model;
+package com.example.github_commits.domain;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

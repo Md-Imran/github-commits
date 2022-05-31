@@ -1,4 +1,4 @@
-package com.example.github_commits.model;
+package com.example.github_commits.domain;
 
 
 
