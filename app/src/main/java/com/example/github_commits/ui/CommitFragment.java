@@ -64,7 +64,7 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
             mBinding.swipeRefresh.setRefreshing(false);
             return;
         }
-        mViewModel.getCommits();
+        mViewModel.getCommits(10);
     }
 
     private void initCallBack() {
@@ -75,6 +75,7 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
             mViewModel.commitLiveDate.observe(getActivity(), CommitResponse -> {
                 if (CommitResponse != null && !CommitResponse.isEmpty()) {
                     if (mAdapter != null) {
+                        mAdapter.clear();
                         mBinding.swipeRefresh.setRefreshing(false);
                         for (int i = 0; i < CommitResponse.size(); i++) {
                             CommitResponse item = CommitResponse.get(i);

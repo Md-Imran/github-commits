@@ -24,12 +24,12 @@ public class CommitViewModel extends ViewModel {
 
     public MutableLiveData<List<CommitResponse>> commitLiveDate = new MutableLiveData<>();
 
-    public void getCommits() {
+    public void getCommits(int count) {
         ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
         // HashMap<String, String> map = new HashMap<>();
         //map.put("Accept", "application/json");
 
-        Call<List<CommitResponse>> call = service.getCommits();
+        Call<List<CommitResponse>> call = service.getCommits(count);
         call.enqueue(new Callback<List<CommitResponse>>() {
             @Override
             public void onResponse(@NonNull Call<List<CommitResponse>> call, @NonNull Response<List<CommitResponse>> response) {
