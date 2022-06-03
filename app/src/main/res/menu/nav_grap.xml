@@ -4,13 +4,11 @@
 
         <item
             android:id="@+id/commitFragment"
-            android:title="Commits"
+            android:title="@string/commits"
             android:icon="@drawable/ic_commits"/>
         <item
             android:id="@+id/profileFragment"
-            android:title="User Profile"
+            android:title="@string/user_profile"
             android:icon="@drawable/ic_user"/>
-
-
 
 </menu>

@@ -2,6 +2,7 @@ package com.example.github_commits.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
@@ -14,21 +15,25 @@ import com.example.github_commits.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements  NavigationBarView.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
+
+    //Initialize variables
+    //  private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Assign variable
+        // binding= DataBindingUtil.setContentView(this,R.layout.activity_main);
 
-
-        BottomNavigationView bottomNavigationView= findViewById(R.id.bottom_navigatin_view);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigatin_view);
         bottomNavigationView.setOnItemSelectedListener(this);
+
         loadFragment(new CommitFragment());
 
     }
-
 
 
     private void loadFragment(Fragment fragment) {
@@ -44,14 +49,12 @@ public class MainActivity extends AppCompatActivity implements  NavigationBarVie
         switch (item.getItemId()) {
             case R.id.commitFragment:
                 selectedFragment = new CommitFragment();
-                return true;
-
+                break;
             case R.id.profileFragment:
                 selectedFragment = new UserProfileFragment();
-                return true;
-
-
+                break;
         }
-        return false;
+        loadFragment(selectedFragment);
+        return true;
     }
 }

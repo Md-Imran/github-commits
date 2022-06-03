@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">github-commits</string>
+    <string name="user_profile">User Profile</string>
+    <string name="commits">Commits</string>
 </resources>
