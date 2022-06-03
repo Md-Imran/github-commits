@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/gray"
-            app:defaultNavHost="true"cv
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toTopOf="@id/bottom_navigatin_view"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
