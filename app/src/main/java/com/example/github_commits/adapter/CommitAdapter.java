@@ -14,7 +14,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.github_commits.R;
 import com.example.github_commits.databinding.ItemCommitBinding;
 import com.example.github_commits.domain.CommitResponse;
-import com.example.github_commits.utils.TimeAgo;
 import com.example.github_commits.utils.TimeUtil;
 
 
@@ -65,11 +64,13 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
         return mCommitResponse.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addItem(CommitResponse item) {
         mCommitResponse.add(item);
         notifyDataSetChanged();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addItems(List<CommitResponse> items) {
         mCommitResponse.addAll(items);
         notifyDataSetChanged();
