@@ -1,7 +1,6 @@
 package com.example.github_commits.ui;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +75,7 @@ public class UserProfileFragment extends Fragment {
         mBinding.tvBio.setText("Bio: " + UserProfileResponse.getBio());
         mBinding.tvPublicRepo.setText("Public Repos: " + UserProfileResponse.getPublicRepos().toString());
         mBinding.tvPublicGigs.setText("Public Gigs: " + UserProfileResponse.getPublicGists().toString());
-        mBinding.tvPrivateRepos.setText("Private Repo : 5");
+        mBinding.tvPrivateRepos.setText("Private Repo: 5");
         Glide.with(getContext())
                 .load(UserProfileResponse.getAvatarUrl())
                 .centerCrop()
