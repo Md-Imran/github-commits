@@ -1,24 +1,30 @@
 package com.example.github_commits.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.github_commits.R;
+import com.example.github_commits.databinding.UserFragmentBinding;
 import com.example.github_commits.domain.UserProfileResponse;
 import com.example.github_commits.utils.NetworkUtils;
-import com.example.github_commits.viewmodels.CommitViewModel;
 import com.example.github_commits.viewmodels.UserProfileViewModel;
 
 public class UserProfileFragment extends Fragment {
 
+
+    private UserFragmentBinding mBinding;
     private UserProfileViewModel mViewModel;
-    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,12 +36,11 @@ public class UserProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.user_fragment, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.user_fragment, container, false);
         mViewModel = new ViewModelProvider(this).get(UserProfileViewModel.class);
         fetchUserProfileData();
         initCallBack();
-        return view;
+        return mBinding.getRoot();
     }
 
     private void fetchUserProfileData() {
@@ -53,10 +58,25 @@ public class UserProfileFragment extends Fragment {
         if (getActivity() != null) {
             mViewModel.userProfileLiveData.observe(getActivity(), UserProfileResponse -> {
                 if (UserProfileResponse != null) {
-
+                    setData(UserProfileResponse);
                 }
             });
         }
 
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void setData(UserProfileResponse UserProfileResponse) {
+
+        mBinding.tvUserName.setText(UserProfileResponse.getName());
+        mBinding.tvShortName.setText("@" + UserProfileResponse.getLogin());
+        mBinding.tvBio.setText("Bio: " + UserProfileResponse.getBio());
+        mBinding.tvPublicRepo.setText("Public Repos: " + UserProfileResponse.getPublicRepos().toString());
+        mBinding.tvPublicGigs.setText("Public Gigs: " + UserProfileResponse.getPublicGists().toString());
+        Glide.with(getContext())
+                .load(UserProfileResponse.getAvatarUrl())
+                .centerCrop()
+                .transform(new RoundedCorners(600))
+                .into(mBinding.avatar);
     }
 }

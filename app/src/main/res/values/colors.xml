@@ -10,5 +10,7 @@
     <color name="blue">#0a84ff</color>
     <color name="gray">#333333</color>
     <color name="light_gray">#958F8F</color>
-    <color name="light_text_color">#CFCDCD</color>
+    <color name="light_text_color">#FDFDFD</color>
+    <color name="status_bar_color">#202020</color>
+    <color name="bottom_nav_color">#1a1a1a</color>
 </resources>

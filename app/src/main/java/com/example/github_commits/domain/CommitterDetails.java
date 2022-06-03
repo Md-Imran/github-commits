@@ -5,8 +5,7 @@ package com.example.github_commits.domain;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class Author__1 {
+public class CommitterDetails {
 
     @SerializedName("login")
     @Expose

@@ -14,6 +14,6 @@ public interface ApiInterface {
     @GET("repos/flutter/flutter/commits")
     Call<List<CommitResponse>> getCommits();
 
-    @GET("users/Md-Imran")
+    @GET("users/saeedsh92")
     Call<UserProfileResponse> getUserProfile();
 }

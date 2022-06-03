@@ -9,40 +9,50 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.github_commits.R;
+import com.example.github_commits.adapter.CommitAdapter;
+import com.example.github_commits.databinding.CommitFragmentBinding;
 import com.example.github_commits.domain.CommitResponse;
 import com.example.github_commits.utils.NetworkUtils;
 import com.example.github_commits.viewmodels.CommitViewModel;
 
 
-public class CommitFragment extends Fragment {
+public class CommitFragment extends Fragment implements CommitAdapter.ItemClickListener {
 
-    private View view;
+    private CommitFragmentBinding mBinding;
     private CommitViewModel mViewModel;
+    private CommitAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.commit_fragment, container, false);
-
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.commit_fragment, container, false);
         mViewModel = new ViewModelProvider(this).get(CommitViewModel.class);
 
-
+        initView();
         fetchCommit();
         initCallBack();
 
-        return view;
+        return mBinding.getRoot();
+    }
+
+    private void initView() {
+        mAdapter = new CommitAdapter(getActivity(), this);
+        mBinding.recyclerViewCommit.setAdapter(mAdapter);
+
+
     }
 
     private void fetchCommit() {
@@ -60,10 +70,26 @@ public class CommitFragment extends Fragment {
         if (getActivity() != null) {
             mViewModel.commitLiveDate.observe(getActivity(), CommitResponse -> {
                 if (CommitResponse != null && !CommitResponse.isEmpty()) {
+                    if (mAdapter != null) {
+                        for (int i = 0; i < CommitResponse.size(); i++) {
+                            CommitResponse item = CommitResponse.get(i);
+                            String authorName = item.getCommit().getAuthor().getName();
+                            if (authorName.contains("g") || authorName.contains("x")) {
+                                // don't add to adapter
+                            } else {
+                                mAdapter.addItem(item);
+                            }
+                        }
 
+                    }
                 }
             });
         }
+
+    }
+
+    @Override
+    public void onGetItem(CommitResponse item) {
 
     }
 }

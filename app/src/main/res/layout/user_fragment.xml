@@ -1,76 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray">
+    xmlns:tools="http://schemas.android.com/tools">
 
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/avatar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Fransiso Miles"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/avatar" />
+        android:layout_height="match_parent"
+        android:background="@color/gray">
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/user_short_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="fransiso_miles"
-        android:textColor="@color/light_gray"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/avatar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Fransiso Miles"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/avatar" />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_bio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textColor="@color/light_text_color"
-        android:text="Public Repo : 2"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/user_short_name"
-        app:layout_goneMarginTop="5dp" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_short_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="fransiso_miles"
+            android:textColor="@color/light_gray"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_public_repo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Public Gigs : 3"
-        android:textColor="@color/light_text_color"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bio" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_public_gigs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="Private Repo : 5"
-        android:textColor="@color/light_text_color"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_public_repo" />
+        <TextView
+            android:id="@+id/tv_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="Bio : Android Developer"
+            android:textColor="@color/light_text_color"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_short_name"
+             />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_public_repo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Public Repo : 2"
+            android:textColor="@color/light_text_color"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bio" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_public_gigs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Public Gigs : 3"
+            android:textColor="@color/light_text_color"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_public_repo" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_privae_gigs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+            android:text="Private Repo : 5"
+            android:textColor="@color/light_text_color"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_public_gigs" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

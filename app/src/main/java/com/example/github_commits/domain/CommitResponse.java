@@ -26,10 +26,10 @@ public class CommitResponse {
     private String commentsUrl;
     @SerializedName("author")
     @Expose
-    private Author__1 author;
+    private AuthorDetails author;
     @SerializedName("committer")
     @Expose
-    private Committer__1 committer;
+    private CommitterDetails committer;
     @SerializedName("parents")
     @Expose
     private List<Parent> parents = null;
@@ -82,19 +82,19 @@ public class CommitResponse {
         this.commentsUrl = commentsUrl;
     }
 
-    public Author__1 getAuthor() {
+    public AuthorDetails getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author__1 author) {
+    public void setAuthor(AuthorDetails author) {
         this.author = author;
     }
 
-    public Committer__1 getCommitter() {
+    public CommitterDetails getCommitter() {
         return committer;
     }
 
-    public void setCommitter(Committer__1 committer) {
+    public void setCommitter(CommitterDetails committer) {
         this.committer = committer;
     }
 

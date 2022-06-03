@@ -3,7 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/drawable/drawable_rounded_corner_view.xml" value="0.1205" />
         <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/commit_fragment.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/item_commit.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/item_layout.xml" value="0.16770833333333332" />
+        <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/test.xml" value="0.1" />
         <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/layout/user_fragment.xml" value="0.16770833333333332" />
         <entry key="..\:/Users/DbugStudio/StudioProjects/github-commits/app/src/main/res/menu/nav_grap.xml" value="0.1" />
         <entry key="..\:/Users/Muhammad Imran/Downloads/githubcommits/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
