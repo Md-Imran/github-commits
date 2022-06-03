@@ -1,6 +1,7 @@
 package com.example.github_commits.ui;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +30,6 @@ public class UserProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -45,7 +44,8 @@ public class UserProfileFragment extends Fragment {
 
     private void fetchUserProfileData() {
         if (!NetworkUtils.isNetworkAvailable(getContext())) {
-            Toast.makeText(getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            mBinding.progressBar.setVisibility(View.GONE);
             return;
         }
         mViewModel.getUserProfile();
@@ -58,7 +58,10 @@ public class UserProfileFragment extends Fragment {
         if (getActivity() != null) {
             mViewModel.userProfileLiveData.observe(getActivity(), UserProfileResponse -> {
                 if (UserProfileResponse != null) {
+                    mBinding.progressBar.setVisibility(View.GONE);
                     setData(UserProfileResponse);
+                } else {
+                    mBinding.progressBar.setVisibility(View.GONE);
                 }
             });
         }
@@ -73,6 +76,7 @@ public class UserProfileFragment extends Fragment {
         mBinding.tvBio.setText("Bio: " + UserProfileResponse.getBio());
         mBinding.tvPublicRepo.setText("Public Repos: " + UserProfileResponse.getPublicRepos().toString());
         mBinding.tvPublicGigs.setText("Public Gigs: " + UserProfileResponse.getPublicGists().toString());
+        mBinding.tvPrivateRepos.setText("Private Repo : 5");
         Glide.with(getContext())
                 .load(UserProfileResponse.getAvatarUrl())
                 .centerCrop()

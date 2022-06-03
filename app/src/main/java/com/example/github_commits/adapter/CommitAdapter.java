@@ -15,6 +15,7 @@ import com.example.github_commits.R;
 import com.example.github_commits.databinding.ItemCommitBinding;
 import com.example.github_commits.domain.CommitResponse;
 import com.example.github_commits.utils.TimeAgo;
+import com.example.github_commits.utils.TimeUtil;
 
 
 import org.joda.time.DateTime;
@@ -97,9 +98,12 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
                 mBinding.tvCommitTitle.setText(commit);
             }
             mBinding.tvCommitterName.setText(item.getCommit().getAuthor().getName());
-            String dateTime = new DateTime(new Date()).minusDays(1).toDate().toString();
-           // String time = new TimeAgo().getTimeAgo(item.getCommit().getAuthor().getDate());
-            //mBinding.tvDateTime.setText(time);
+// String dateTime = new DateTime(new Date()).minusDays(1).toDate().toString();
+
+            String dateTime=item.getCommit().getAuthor().getDate();
+            String date= TimeUtil.convertNormalTimeToServer(dateTime);
+           // String time = new TimeAgo().getTimeAgo(date);
+           // mBinding.tvDateTime.setText(time);
             Glide.with(mContext)
                     .load(item.getAuthor().getAvatarUrl())
                     .centerCrop()

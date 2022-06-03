@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.github_commits.R;
 import com.example.github_commits.adapter.CommitAdapter;
@@ -22,7 +23,7 @@ import com.example.github_commits.utils.NetworkUtils;
 import com.example.github_commits.viewmodels.CommitViewModel;
 
 
-public class CommitFragment extends Fragment implements CommitAdapter.ItemClickListener {
+public class CommitFragment extends Fragment implements CommitAdapter.ItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private CommitFragmentBinding mBinding;
     private CommitViewModel mViewModel;
@@ -49,6 +50,8 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
     }
 
     private void initView() {
+        mBinding.swipeRefresh.setOnRefreshListener(this);
+        mBinding.swipeRefresh.setRefreshing(true);
         mAdapter = new CommitAdapter(getActivity(), this);
         mBinding.recyclerViewCommit.setAdapter(mAdapter);
 
@@ -57,7 +60,8 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
 
     private void fetchCommit() {
         if (!NetworkUtils.isNetworkAvailable(getContext())) {
-            Toast.makeText(getContext(), "No Internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+            mBinding.swipeRefresh.setRefreshing(false);
             return;
         }
         mViewModel.getCommits();
@@ -71,6 +75,7 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
             mViewModel.commitLiveDate.observe(getActivity(), CommitResponse -> {
                 if (CommitResponse != null && !CommitResponse.isEmpty()) {
                     if (mAdapter != null) {
+                        mBinding.swipeRefresh.setRefreshing(false);
                         for (int i = 0; i < CommitResponse.size(); i++) {
                             CommitResponse item = CommitResponse.get(i);
                             String authorName = item.getCommit().getAuthor().getName();
@@ -90,6 +95,12 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
 
     @Override
     public void onGetItem(CommitResponse item) {
+
+    }
+
+    @Override
+    public void onRefresh() {
+        fetchCommit();
 
     }
 }

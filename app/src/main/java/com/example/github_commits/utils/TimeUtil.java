@@ -15,6 +15,7 @@ public class TimeUtil {
     private static final String FORMAT_3 = "MMMM dd, yyyy hh:mm a";
     private static final String FORMAT_2 = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
     private static final String FORMAT_4 = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+
     //2022-06-03T08:45:57Z
     private static final String FORMAT_5 = "yyyy-MM-dd";
 
@@ -42,6 +43,26 @@ public class TimeUtil {
         }
         return "";
     }
+
+    public static Date convertToDate(String time) {
+        if (TextUtils.isEmpty(time)) {
+            return null;
+        }
+        SimpleDateFormat oldFormat;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            oldFormat = new SimpleDateFormat(FORMAT_2, Locale.getDefault());
+        } else {
+            oldFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
+        try {
+            return oldFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public static String convertServerTimePurchaseTime(String time) {
         if (TextUtils.isEmpty(time)) {
