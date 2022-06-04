@@ -26,7 +26,6 @@
             android:layout_width="@dimen/dp30"
             android:layout_height="@dimen/dp30"
             android:layout_marginStart="@dimen/dp5"
-            android:background="@mipmap/ic_launcher"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_commit_title" />
 
@@ -35,9 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp40"
-            android:textColor="@color/author_text_color"
             android:layout_marginTop="@dimen/dp2"
             android:text="TahaTesser"
+            android:textColor="@color/author_text_color"
             app:layout_constraintStart_toStartOf="@+id/committer_image"
             app:layout_constraintTop_toBottomOf="@+id/tv_commit_title" />
 

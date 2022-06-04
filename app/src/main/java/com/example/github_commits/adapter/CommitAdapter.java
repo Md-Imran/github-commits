@@ -109,6 +109,7 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
                     .load(item.getAuthor().getAvatarUrl())
                     .centerCrop()
                     .transform(new RoundedCorners(600))
+                    .placeholder(R.drawable.ic_user_avatar)
                     .into(mBinding.committerImage);
             mBinding.getRoot().setOnClickListener(v -> {
                 if (listener != null) {
