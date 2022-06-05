@@ -11,5 +11,7 @@ Read the logs using the Logcat.
 Binding adapters in data binding.
 Using the Retrofit networking library.
 
-#Download and run the app.
-    You need Android Studio 3.4 or higher to build this project.
+Getting Started
+---------------
+1. Download and run the app.
+2. You need Android Studio 3.4 or higher to build this project.
