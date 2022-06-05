@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements NavigationBarView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mBinding.bottomNavigatinView.setOnItemSelectedListener(this);
+        mBinding.bottomNavigationView.setOnItemSelectedListener(this);
         loadFragment(new CommitFragment());
 
     }

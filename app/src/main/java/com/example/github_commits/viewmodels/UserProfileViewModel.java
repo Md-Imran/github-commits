@@ -17,10 +17,7 @@ public class UserProfileViewModel extends ViewModel {
 
     public void getUserProfile() {
         ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
-        // HashMap<String, String> map = new HashMap<>();
-        //map.put("Accept", "application/json");
-
-        Call<UserProfileResponse> call = service.getUserProfile();
+         Call<UserProfileResponse> call = service.getUserProfile();
         call.enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(@NonNull Call<UserProfileResponse> call, @NonNull Response<UserProfileResponse> response) {

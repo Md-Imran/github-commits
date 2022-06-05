@@ -14,7 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.github_commits.R;
 import com.example.github_commits.databinding.ItemCommitBinding;
 import com.example.github_commits.domain.CommitResponse;
-import com.example.github_commits.utils.TimeUtil;
+import com.example.github_commits.utils.TimeUtils;
 
 
 import java.util.ArrayList;
@@ -68,11 +68,6 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
         notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void addItems(List<CommitResponse> items) {
-        mCommitResponse.addAll(items);
-        notifyDataSetChanged();
-    }
 
     @SuppressLint("NotifyDataSetChanged")
     public void clear() {
@@ -98,7 +93,7 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
             }
             mBinding.tvCommitterName.setText(item.getCommit().getAuthor().getName());
             String date = item.getCommit().getAuthor().getDate();
-            String time = TimeUtil.getFormattedTime(date);
+            String time = TimeUtils.getFormattedTime(date);
             mBinding.tvCommitTime.setText(time);
 
             if (mContext != null)

@@ -17,6 +17,7 @@ import com.example.github_commits.R;
 import com.example.github_commits.adapter.CommitAdapter;
 import com.example.github_commits.databinding.CommitFragmentBinding;
 import com.example.github_commits.domain.CommitResponse;
+import com.example.github_commits.helper.TagHelper;
 import com.example.github_commits.utils.NetworkUtils;
 import com.example.github_commits.viewmodels.CommitViewModel;
 
@@ -56,12 +57,13 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
     }
 
     private void fetchCommit() {
-        if (!NetworkUtils.isNetworkAvailable(getContext())) {
-            Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
-            mBinding.swipeRefresh.setRefreshing(false);
-            return;
-        }
-        mViewModel.getCommits(30);
+        if (getContext() != null)
+            if (!NetworkUtils.isNetworkAvailable(getContext())) {
+                Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                mBinding.swipeRefresh.setRefreshing(false);
+                return;
+            }
+        mViewModel.getCommits(TagHelper.NO_OF_COMMIT);
     }
 
     private void initCallBack() {
@@ -77,18 +79,20 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
                         for (int i = 0; i < CommitResponse.size(); i++) {
                             CommitResponse item = CommitResponse.get(i);
                             String authorName = item.getCommit().getAuthor().getName();
-                           /* if (authorName.contains("g") || authorName.contains("x")) {
-                                // don't add to adapter
+                            if (authorName.contains("g") || authorName.contains("x")) {
+                                // don't add item to adapter
                             } else {
                                 mAdapter.addItem(item);
-                            }*/
-                            mAdapter.addItem(item);
+                            }
                         }
                         if (mAdapter.getItemCount() == 0) {
                             Toast.makeText(getContext(), "No Commit Found. \nNone of the committer name does not contain letter g or x", Toast.LENGTH_LONG).show();
                         }
 
                     }
+                } else {
+                    mBinding.swipeRefresh.setRefreshing(false);
+                    Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
                 }
             });
         }

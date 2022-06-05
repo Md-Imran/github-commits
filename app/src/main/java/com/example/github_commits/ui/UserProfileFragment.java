@@ -42,11 +42,12 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void fetchUserProfileData() {
-        if (!NetworkUtils.isNetworkAvailable(getContext())) {
-            Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
-            mBinding.progressBar.setVisibility(View.GONE);
-            return;
-        }
+        if (getContext() != null)
+            if (!NetworkUtils.isNetworkAvailable(getContext())) {
+                Toast.makeText(getContext(), "No Internet Connection", Toast.LENGTH_SHORT).show();
+                mBinding.progressBar.setVisibility(View.GONE);
+                return;
+            }
         mViewModel.getUserProfile();
     }
 
@@ -60,6 +61,7 @@ public class UserProfileFragment extends Fragment {
                     mBinding.progressBar.setVisibility(View.GONE);
                     setData(UserProfileResponse);
                 } else {
+                    Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
                     mBinding.progressBar.setVisibility(View.GONE);
                 }
             });

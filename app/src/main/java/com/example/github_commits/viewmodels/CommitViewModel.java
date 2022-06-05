@@ -11,8 +11,6 @@ import com.example.github_commits.helper.TagHelper;
 import com.example.github_commits.network.ApiInterface;
 import com.example.github_commits.network.RetrofitClientInstance;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,9 +24,6 @@ public class CommitViewModel extends ViewModel {
 
     public void getCommits(int count) {
         ApiInterface service = RetrofitClientInstance.getRetrofitInstance().create(ApiInterface.class);
-        // HashMap<String, String> map = new HashMap<>();
-        //map.put("Accept", "application/json");
-
         Call<List<CommitResponse>> call = service.getCommits(count);
         call.enqueue(new Callback<List<CommitResponse>>() {
             @Override

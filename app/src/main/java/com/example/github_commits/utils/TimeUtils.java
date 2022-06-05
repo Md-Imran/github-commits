@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class TimeUtil {
+public class TimeUtils {
     //val SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
     private static final String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 

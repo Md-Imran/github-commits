@@ -11,5 +11,10 @@
     <string name="days_ago">" days ago"</string>
     <string name="week_ago">" week ago"</string>
     <string name="weeks_ago">" weeks ago"</string>
+    <string name="francisco_miles">Francisco Miles</string>
+    <string name="master">master</string>
+    <string name="_18_14">18:14</string>
+    <string name="flutter_commit_list">Flutter Commit List</string>
+    <string name="fix_all_bugs">Fix All bugs Fix All bugs Fix All bugs Fix All b All bugs Fix All ugs Fix All bugs</string>
 
 </resources>
