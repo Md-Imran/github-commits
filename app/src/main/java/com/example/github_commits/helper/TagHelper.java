@@ -5,6 +5,6 @@ public interface TagHelper {
 
     String USER_PROFILE_TAG = "ProfileTest";
 
-    int NO_OF_COMMIT = 100;
+    int NO_OF_COMMIT = 10;
 
 }
