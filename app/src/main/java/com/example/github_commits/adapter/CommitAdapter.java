@@ -97,11 +97,9 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
                 mBinding.tvCommitTitle.setText(commit);
             }
             mBinding.tvCommitterName.setText(item.getCommit().getAuthor().getName());
-// String dateTime = new DateTime(new Date()).minusDays(1).toDate().toString();
-
             String date = item.getCommit().getAuthor().getDate();
-            String time= TimeUtil.getFormattedTime(date);
-             mBinding.tvDateTime.setText(time);
+            String time = TimeUtil.getFormattedTime(date);
+            mBinding.tvCommitTime.setText(time);
 
             if (mContext != null)
                 Glide.with(mContext)
@@ -109,7 +107,7 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
                         .centerCrop()
                         .transform(new RoundedCorners(600))
                         .placeholder(R.drawable.ic_user_avatar)
-                        .into(mBinding.committerImage);
+                        .into(mBinding.ivCommitterPic);
             mBinding.getRoot().setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onGetItem(item);
