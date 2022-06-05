@@ -2,7 +2,7 @@
 
 # 📝 Introduction
 
-git-commits is a sample android native app for fetch the commits from a particular github link. Here user can see the commit time as well as author name.  you can also see the github public profile for a particular user.
+git-commits is a sample ***Android Native App*** for fetch the commits from a particular github link. Here user can see the commit time as well as author name.  you can also see the github public profile for a particular user.
 
 # 🚦 Pre-requisites
 How to open, build, and run Android apps with Android Studio.
@@ -15,3 +15,5 @@ Getting Started
 ---------------
 1. Download and run the app.
 2. You need Android Studio 3.4 or higher to build this project.
+
+
