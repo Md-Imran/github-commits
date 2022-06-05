@@ -77,12 +77,15 @@ public class CommitFragment extends Fragment implements CommitAdapter.ItemClickL
                         for (int i = 0; i < CommitResponse.size(); i++) {
                             CommitResponse item = CommitResponse.get(i);
                             String authorName = item.getCommit().getAuthor().getName();
-                           /* if (authorName.contains("g") || authorName.contains("x")) {
+                            if (authorName.contains("g") || authorName.contains("x")) {
                                 // don't add to adapter
                             } else {
                                 mAdapter.addItem(item);
-                            }*/
-                            mAdapter.addItem(item);
+                            }
+                            //mAdapter.addItem(item);
+                        }
+                        if (mAdapter.getItemCount() == 0) {
+                            Toast.makeText(getContext(), "No Commit Found. \nNone of the committer name does not contain letter g or x", Toast.LENGTH_LONG).show();
                         }
 
                     }

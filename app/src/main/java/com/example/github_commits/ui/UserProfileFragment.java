@@ -76,10 +76,11 @@ public class UserProfileFragment extends Fragment {
         mBinding.tvPublicRepo.setText("Public Repos: " + UserProfileResponse.getPublicRepos().toString());
         mBinding.tvPublicGigs.setText("Public Gigs: " + UserProfileResponse.getPublicGists().toString());
         mBinding.tvPrivateRepos.setText("Private Repo: 5");
-        Glide.with(getContext())
-                .load(UserProfileResponse.getAvatarUrl())
-                .centerCrop()
-                .transform(new RoundedCorners(600))
-                .into(mBinding.avatar);
+        if (getContext() != null)
+            Glide.with(getContext())
+                    .load(UserProfileResponse.getAvatarUrl())
+                    .centerCrop()
+                    .transform(new RoundedCorners(600))
+                    .into(mBinding.avatar);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.github_commits.utils;
 
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -11,160 +12,66 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class TimeUtil {
-    private static final String FORMAT_1 = "dd MMM yyyy";
-    private static final String FORMAT_3 = "MMMM dd, yyyy hh:mm a";
-    private static final String FORMAT_2 = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-    private static final String FORMAT_4 = "yyyy-MM-dd'T'HH:mm:ssZZZZZ";
+    //val SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+    private static final String SERVER_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
-    //2022-06-03T08:45:57Z
-    private static final String FORMAT_5 = "yyyy-MM-dd";
+    private static final int SECOND_MILLIS = 1000;
+    private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
+    private static final int WEEKS_MILLIS = 7 * DAY_MILLIS;
+    private static final int MONTHS_MILLIS = 4 * WEEKS_MILLIS;
 
-    public static String convertTimeToDate(Date date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_1, Locale.getDefault());
-        return dateFormat.format(date);
-    }
+    public static String getFormattedTime(String serverTime) {
 
-    public static String convertTimeToDate(String time) {
-        if (TextUtils.isEmpty(time)) {
-            return "";
-        }
-        SimpleDateFormat oldFormat;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            oldFormat = new SimpleDateFormat(FORMAT_2, Locale.getDefault());
-        } else {
-            oldFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_1, Locale.getDefault());
+        SimpleDateFormat oldFormat = new SimpleDateFormat(SERVER_FORMAT, Locale.getDefault());
+        Date date = null;
         try {
-            Date date = oldFormat.parse(time);
-            return dateFormat.format(date);
+            date = oldFormat.parse(serverTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return "";
-    }
 
-    public static Date convertToDate(String time) {
-        if (TextUtils.isEmpty(time)) {
-            return null;
-        }
-        SimpleDateFormat oldFormat;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            oldFormat = new SimpleDateFormat(FORMAT_2, Locale.getDefault());
-        } else {
-            oldFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
-        try {
-            return oldFormat.parse(time);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+        Date currentDate = Calendar.getInstance().getTime();
+        String output = "";
 
 
-    public static String convertServerTimePurchaseTime(String time) {
-        if (TextUtils.isEmpty(time)) {
-            return "";
-        }
-        SimpleDateFormat oldFormat;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            oldFormat = new SimpleDateFormat(FORMAT_2, Locale.getDefault());
-        } else {
-            oldFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
-        }
-        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_3, Locale.getDefault());
-        try {
-            Date date = oldFormat.parse(time);
-            return dateFormat.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+        if (date != null) {
+            long timeDifference = currentDate.getTime() - date.getTime();
+            Log.e("TIME", " : " + date.getTime());
+            if (DateUtils.isToday(date.getTime())) {
+                // It is today message now check hor minute etc
+                Log.e("TIME", "Time difference $timeDifference");
 
-    public static String convertNormalTimeToServer(String normalTime) {
-        if (TextUtils.isEmpty(normalTime)) {
-            return "";
-        }
-
-        SimpleDateFormat oldFormat = new SimpleDateFormat(FORMAT_1, Locale.ENGLISH);
-        SimpleDateFormat dateFormat;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            dateFormat = new SimpleDateFormat(FORMAT_2, Locale.ENGLISH);
-        } else {
-            dateFormat = new SimpleDateFormat(FORMAT_4, Locale.ENGLISH);
-        }
-
-        try {
-            Date date = oldFormat.parse(normalTime);
-            String formattedDate = dateFormat.format(date);
-            if (formattedDate.contains("+")) {
-                String[] arr = formattedDate.split("\\+");
-                return arr[0] + "Z";
+                if (timeDifference > (5 * 60 * 1000)) {
+                    SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                    output = format.format(date);
+                } else {
+                    output = "Just Now";
+                }
             } else {
-                return dateFormat.format(date);
+
+                // Now check it is yesterday or not
+                if (isYesterday(date.getTime())) {
+                    output = "Yesterday";
+                } else {
+                    // Check it is last 5 days or not cause today and yesterday will be ignored
+                    if (timeDifference < 7 * DAY_MILLIS) {
+                        SimpleDateFormat format = new SimpleDateFormat("EEEE", Locale.getDefault());
+                        output=format.format(date);
+                    } else {
+                        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                        output=  format.format(date);
+                    }
+                }
+
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
-        return "";
+        return output;
     }
 
-    public static boolean isValid(String validTill) {
-        if (!TextUtils.isEmpty(validTill)) {
-            SimpleDateFormat oldFormat;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                oldFormat = new SimpleDateFormat(FORMAT_2, Locale.getDefault());
-            } else {
-                oldFormat = new SimpleDateFormat(FORMAT_4, Locale.getDefault());
-            }
-            try {
-                Date date = oldFormat.parse(validTill);
-                return date.getTime() > System.currentTimeMillis();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return false;
-    }
-
-
-    public static String convertNormalToReadable(String time) {
-        if (!TextUtils.isEmpty(time)) {
-            time = time.split("\\.")[0];
-            SimpleDateFormat oldFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-            Calendar cal = Calendar.getInstance();
-            TimeZone tz = cal.getTimeZone();
-            try {
-                oldFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Date date = oldFormat.parse(time);
-
-                Log.d("Timezone", "zone " + tz.getDisplayName());
-                SimpleDateFormat newFormat = new SimpleDateFormat("hh:mm a");
-                newFormat.setTimeZone(tz);
-                return newFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
-    }
-
-    public static String convertRealMonthName(String time) {
-        if (!TextUtils.isEmpty(time)) {
-            SimpleDateFormat oldFormat = new SimpleDateFormat(FORMAT_5, Locale.getDefault());
-            try {
-                Date date = oldFormat.parse(time);
-                SimpleDateFormat newFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
-                return newFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return "";
+    private static boolean isYesterday(long whenInMillis) {
+        return DateUtils.isToday(whenInMillis + DateUtils.DAY_IN_MILLIS);
     }
 }
 

@@ -17,10 +17,8 @@ import com.example.github_commits.domain.CommitResponse;
 import com.example.github_commits.utils.TimeUtil;
 
 
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> {
@@ -101,16 +99,17 @@ public class CommitAdapter extends RecyclerView.Adapter<CommitAdapter.CommitVH> 
             mBinding.tvCommitterName.setText(item.getCommit().getAuthor().getName());
 // String dateTime = new DateTime(new Date()).minusDays(1).toDate().toString();
 
-            String dateTime=item.getCommit().getAuthor().getDate();
-            String date= TimeUtil.convertNormalTimeToServer(dateTime);
-           // String time = new TimeAgo().getTimeAgo(date);
-           // mBinding.tvDateTime.setText(time);
-            Glide.with(mContext)
-                    .load(item.getAuthor().getAvatarUrl())
-                    .centerCrop()
-                    .transform(new RoundedCorners(600))
-                    .placeholder(R.drawable.ic_user_avatar)
-                    .into(mBinding.committerImage);
+            String date = item.getCommit().getAuthor().getDate();
+            String time= TimeUtil.getFormattedTime(date);
+             mBinding.tvDateTime.setText(time);
+
+            if (mContext != null)
+                Glide.with(mContext)
+                        .load(item.getAuthor().getAvatarUrl())
+                        .centerCrop()
+                        .transform(new RoundedCorners(600))
+                        .placeholder(R.drawable.ic_user_avatar)
+                        .into(mBinding.committerImage);
             mBinding.getRoot().setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onGetItem(item);
